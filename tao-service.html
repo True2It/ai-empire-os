@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAO LLC - Expediting & Moving Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tao-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .tao-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tao-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #ff6b6b;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card .price {
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .booking-form {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .booking-form h2 {
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .price-estimate {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+        }
+
+        .price-estimate h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-estimate .estimate-value {
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .booking-status {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+        }
+
+        .status-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .status-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .status-step.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -20px;
+            height: 40px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin: 0 auto;
+            width: 40px;
+        }
+
+        .status-step.pending::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -20px;
+            height: 40px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            margin: 0 auto;
+            width: 40px;
+        }
+
+        .status-step p {
+            margin-top: 50px;
+            color: #666;
+        }
+
+        .revenue-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .revenue-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .revenue-card h4 {
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .revenue-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-book:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- TAO LLC Header -->
+    <div class="tao-header">
+        <h1>🚚 TAO LLC</h1>
+        <p>Expediting & Moving Service</p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">Professional moving, delivery, and roadside assistance across Atlanta, GA and Houston, TX</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#services" class="nav-link active">Services</a></li>
+            <li><a href="#booking" class="nav-link">Book Now</a></li>
+            <li><a href="#tracking" class="nav-link">Track Order</a></li>
+            <li><a href="#revenue" class="nav-link">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Services Section -->
+        <section id="services" class="section active">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>📦 Local Moving</h3>
+                    <p>Professional moving services for residential and commercial moves</p>
+                    <div class="price">Starting at $150</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $2.50/mile + $50/hour</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>⚡ Expedited Delivery</h3>
+                    <p>Same-day or next-day delivery for time-sensitive shipments</p>
+                    <div class="price">Starting at $75</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $3.50/mile + $60/hour</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>🛣️ Roadside Assistance</h3>
+                    <p>24/7 roadside assistance, towing, and emergency services</p>
+                    <div class="price">Starting at $100</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $2.00/mile + $45/hour</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>🗑️ Junk Removal</h3>
+                    <p>Efficient junk removal and disposal services</p>
+                    <div class="price">Starting at $200</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $150/load</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>📋 Mobile Notary</h3>
+                    <p>Mobile notary services for documents and legal paperwork</p>
+                    <div class="price">Starting at $50</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $15/document</p>
+                </div>
+
+                <div class="service-card">
+                    <h3>💦 Pressure Washing</h3>
+                    <p>Professional pressure washing for residential and commercial properties</p>
+                    <div class="price">Starting at $100</div>
+                    <p style="font-size: 0.85rem; color: #666;">+ $0.25/sq ft</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="section">
+            <h2>Book a Service</h2>
+            <form class="booking-form" id="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="service-type">Service Type *</label>
+                        <select id="service-type" required>
+                            <option value="">Select a service</option>
+                            <option value="MOVING">Local Moving</option>
+                            <option value="EXPEDITED_DELIVERY">Expedited Delivery</option>
+                            <option value="ROADSIDE_ASSISTANCE">Roadside Assistance</option>
+                            <option value="JUNK_REMOVAL">Junk Removal</option>
+                            <option value="NOTARY_SERVICES">Mobile Notary</option>
+                            <option value="PRESSURE_WASHING">Pressure Washing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Service Area *</label>
+                        <select id="city" required>
+                            <option value="">Select a city</option>
+                            <option value="ATLANTA">Atlanta, GA</option>
+                            <option value="HOUSTON">Houston, TX</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="pickup">Pickup Location *</label>
+                        <input type="text" id="pickup" placeholder="Enter pickup address" required />
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="dropoff">Dropoff Location *</label>
+                        <input type="text" id="dropoff" placeholder="Enter dropoff address" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scheduled-time">Scheduled Time *</label>
+                        <input type="datetime-local" id="scheduled-time" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="distance">Distance (miles) *</label>
+                        <input type="number" id="distance" placeholder="0" min="0" step="0.1" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weight">Weight (lbs)</label>
+                        <input type="number" id="weight" placeholder="0" min="0" step="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="urgency">Urgency Level</label>
+                        <select id="urgency">
+                            <option value="1">Standard</option>
+                            <option value="1.25">High</option>
+                            <option value="1.5">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="notes">Special Instructions</label>
+                        <textarea id="notes" placeholder="Any special instructions or notes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="price-estimate">
+                    <h3>Estimated Price</h3>
+                    <div class="estimate-value" id="price-estimate">$0.00</div>
+                </div>
+
+                <button type="submit" class="btn-book">Book Service Now</button>
+            </form>
+        </section>
+
+        <!-- Tracking Section -->
+        <section id="tracking" class="section">
+            <h2>Track Your Order</h2>
+            <div class="booking-form">
+                <div class="form-group">
+                    <label for="booking-id">Booking ID</label>
+                    <input type="text" id="booking-id" placeholder="Enter your booking ID (e.g., TAO-1234567890)" />
+                </div>
+                <button class="btn-book" onclick="trackBooking()">Track Order</button>
+            </div>
+
+            <div id="tracking-result" style="display: none; margin-top: 2rem;">
+                <div class="booking-status">
+                    <h3>Order Status</h3>
+                    <div class="status-timeline">
+                        <div class="status-step active">
+                            <p>Confirmed</p>
+                        </div>
+                        <div class="status-step active">
+                            <p>Driver Assigned</p>
+                        </div>
+                        <div class="status-step pending">
+                            <p>In Progress</p>
+                        </div>
+                        <div class="status-step pending">
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <p><strong>Driver:</strong> <span id="driver-name">John Smith</span></p>
+                        <p><strong>Vehicle:</strong> <span id="vehicle-info">2022 Ford Transit Van</span></p>
+                        <p><strong>Estimated Arrival:</strong> <span id="arrival-time">15-20 minutes</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Dashboard -->
+        <section id="revenue" class="section">
+            <h2>TAO LLC Revenue Dashboard</h2>
+            <div class="revenue-dashboard">
+                <div class="revenue-card">
+                    <h4>Total Revenue</h4>
+                    <div class="value" id="total-revenue">$0</div>
+                </div>
+                <div class="revenue-card">
+                    <h4>Completed Bookings</h4>
+                    <div class="value" id="completed-bookings">0</div>
+                </div>
+                <div class="revenue-card">
+                    <h4>Active Bookings</h4>
+                    <div class="value" id="active-bookings">0</div>
+                </div>
+                <div class="revenue-card">
+                    <h4>Average Booking Value</h4>
+                    <div class="value" id="avg-booking">$0</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 TAO LLC - Expediting & Moving Service. All rights reserved. | Phone: 346-540-9025 | Email: makeitmonetizenow@gmail.com</p>
+    </footer>
+
+    <script src="tao-llc-service.js"></script>
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                const sectionId = this.getAttribute('href').substring(1);
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Price calculation
+        document.getElementById('distance').addEventListener('input', calculatePrice);
+        document.getElementById('weight').addEventListener('input', calculatePrice);
+        document.getElementById('urgency').addEventListener('change', calculatePrice);
+        document.getElementById('service-type').addEventListener('change', calculatePrice);
+
+        function calculatePrice() {
+            const serviceType = document.getElementById('service-type').value;
+            const distance = parseFloat(document.getElementById('distance').value) || 0;
+            const weight = parseFloat(document.getElementById('weight').value) || 0;
+            const urgency = parseFloat(document.getElementById('urgency').value) || 1;
+
+            if (!serviceType || distance === 0) {
+                document.getElementById('price-estimate').textContent = '$0.00';
+                return;
+            }
+
+            // Simulate price calculation (would use tao-llc-service.js in production)
+            let price = 100; // Base price
+            price += distance * 2.5;
+            price += (distance / 30) * 50;
+            if (weight > 0) price += 150;
+            price *= urgency;
+
+            document.getElementById('price-estimate').textContent = '$' + price.toFixed(2);
+        }
+
+        // Booking form submission
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Booking submitted! You will receive a confirmation email shortly.');
+            this.reset();
+            document.getElementById('price-estimate').textContent = '$0.00';
+        });
+
+        // Track booking
+        function trackBooking() {
+            const bookingId = document.getElementById('booking-id').value;
+            if (bookingId) {
+                document.getElementById('tracking-result').style.display = 'block';
+            }
+        }
+
+        // Update revenue dashboard
+        function updateRevenueMetrics() {
+            // Simulate revenue data
+            document.getElementById('total-revenue').textContent = '$12,450';
+            document.getElementById('completed-bookings').textContent = '87';
+            document.getElementById('active-bookings').textContent = '5';
+            document.getElementById('avg-booking').textContent = '$143';
+        }
+
+        // Initialize
+        updateRevenueMetrics();
+    </script>
+</body>
+</html>
